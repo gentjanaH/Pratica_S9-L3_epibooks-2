@@ -1,25 +1,34 @@
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Col, Card } from 'react-bootstrap';
+import { Component } from 'react'
+
+class OneBook extends Component {
+
+    state = {
+        selected: false
+    }
+
+    render() {
+        return (
+            <Col sm={12} md={4} lg={3} className="mx-auto">
+                <Card className={`h-100 ${this.state.selected ? "border border-3 border-danger" : ""}`}>
+                    <Card.Img
+                        variant="top"
+                        src={this.props.book.img}
+                        className="h-75 w-100"
+                        onClick={() => this.setState({ selected: !this.state.selected })
+                        }
+                    />                 <Card.Body >
+                        <Card.Title>{this.props.book.title}</Card.Title>
+
+                    </Card.Body>
+                </Card>
+            </Col >
+        )
+    }
 
 
-const OneBook = function ({ book }) {
-    return (
-        <Container>
-            <Row className="justify-content-center my-5" >
-                <Col sm={12} md={6} lg={4}>
-                    <Card key={book.asin} >
-                        <Card.Img variant="top" src={book.img} className="h-25" />
-                        <Card.Body>
-                            <Card.Title>{book.title}</Card.Title>
-
-                            <Button variant="primary">Apri</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
 
 
-            </Row>
-        </Container>
-    )
 }
 
 export default OneBook;
