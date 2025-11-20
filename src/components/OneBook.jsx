@@ -1,15 +1,19 @@
 import { Col, Card, Button } from 'react-bootstrap';
 import { Component } from 'react'
+import CommentArea from "./CommentArea";
+import AddComment from './AddComment';
+
 
 class OneBook extends Component {
 
     state = {
-        selected: false
+        selected: false,
+        showModal: false
     }
 
     render() {
         return (
-            <Col sm={12} md={4} lg={3} className="mx-auto">
+            <Col sm={6} md={4} lg={3} className="mx-auto">
                 <Card className={`h-100 ${this.state.selected ? "border border-3 border-danger" : "border-info"}`}>
                     <Card.Img
                         variant="top"
@@ -26,9 +30,19 @@ class OneBook extends Component {
                         </Card.Text>
                         <div className="d-flex justify-content-between flex-wrap align-baseline">
                             <strong className="text-success">€ {this.props.book.price}</strong>
-                            <Button variant="info" className="rounded-pill">Buy</Button>
+
+                            <Button variant="info"
+                                className="rounded-pill"
+                                onClick={() => this.setState({ showModal: true })}>addComment</Button>
                         </div>
                     </Card.Body>
+                    {/* attivo l'area commenti se la card è selezionata e do una proprietà in base elementId all'id del libro */}
+                    {this.state.selected && (
+                        <CommentArea elementId={this.props.book.asin} />
+                    )
+
+                    }
+                    <AddComment show={this.state.showModal} />
                 </Card>
             </Col >
         )
