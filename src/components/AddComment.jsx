@@ -1,19 +1,21 @@
 import { Component } from "react"
+import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
 
 class addComment extends Component {
     state = {
         singleComment: {
-            comment: "string",
-            rate: "string",
-            elementId: "string"
+            comment: "",
+            rate: "",
+            elementId: this.props.elementId
         }
     }
-    submitComment = () => {
-        const URL = "https://striveschool-api.herokuapp.com/api/comments/" + this.props.elementId;
+    submitComment = (e) => {
+        e.preventDefault()
+        const URL = "https://striveschool-api.herokuapp.com/api/comments/";
 
-        fetch(URL, {
+        fetch(URL + this.props.elementId, {
             method: "POST",
             body: JSON.stringify(this.state.singleComment),
             headers: {
@@ -26,9 +28,9 @@ class addComment extends Component {
                     alert("Commento inviato con successo")
                     this.setState({
                         singleComment: {
-                            comment: "string",
-                            rate: "string",
-                            elementId: "string"
+                            comment: "",
+                            rate: "",
+                            elementId: this.props.elementId
                         }
                     })
                 } else {
@@ -44,8 +46,8 @@ class addComment extends Component {
 
     render() {
         return (
-            <Form>
-                <p>{this.props.title}</p>
+            <Form onSubmit={this.submitComment}>
+                {/* <p>{this.props.title}</p> */}
                 <Form.Group className="mb-3" controlId="rate">
                     <Form.Label>Voto</Form.Label>
                     <Form.Control
@@ -65,9 +67,10 @@ class addComment extends Component {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="comment">
-                    <Form.Label>Scrivi qui la tua recensione</Form.Label>
+                    <Form.Label></Form.Label>
                     <Form.Control
                         as="textarea"
+                        placeholder="Scrivi qui la tua recensione"
                         rows={3}
                         value={this.state.singleComment.comment}
                         onChange={(e) =>

@@ -8,7 +8,7 @@ class OneBook extends Component {
 
     state = {
         selected: false,
-        showModal: false
+        showForm: false
     }
 
     render() {
@@ -33,7 +33,7 @@ class OneBook extends Component {
 
                             <Button variant="info"
                                 className="rounded-pill"
-                                onClick={() => this.setState({ showModal: true })}>addComment</Button>
+                                onClick={() => this.setState({ showForm: !this.state.showForm })}>addComment</Button>
                         </div>
                     </Card.Body>
                     {/* attivo l'area commenti se la card è selezionata e do una proprietà in base elementId all'id del libro */}
@@ -42,7 +42,11 @@ class OneBook extends Component {
                     )
 
                     }
-                    <AddComment show={this.state.showModal} />
+                    {this.state.showForm && (
+                        <AddComment elementId={this.props.book.asin}
+                            title={this.props.book.title} />
+                    )}
+
                 </Card>
             </Col >
         )
