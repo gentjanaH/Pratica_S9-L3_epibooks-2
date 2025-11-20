@@ -8,8 +8,10 @@ class OneBook extends Component {
 
     state = {
         selected: false,
-        showForm: false
+        showForm: false,
+        refreshKey: 0
     }
+
 
     render() {
         return (
@@ -38,13 +40,13 @@ class OneBook extends Component {
                     </Card.Body>
                     {/* attivo l'area commenti se la card è selezionata e do una proprietà in base elementId all'id del libro */}
                     {this.state.selected && (
-                        <CommentArea elementId={this.props.book.asin} />
-                    )
+                        <CommentArea key={this.state.refreshKey} elementId={this.props.book.asin} />
+                    )}
 
-                    }
                     {this.state.showForm && (
                         <AddComment elementId={this.props.book.asin}
-                            title={this.props.book.title} />
+                            title={this.props.book.title}
+                            onAddComment={() => this.setState({ refreshKey: this.state.refreshKey + 1 })} />
                     )}
 
                 </Card>

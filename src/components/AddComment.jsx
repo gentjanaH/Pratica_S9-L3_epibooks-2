@@ -83,7 +83,7 @@ class addComment extends Component {
                         } />
                 </Form.Group>
 
-                <Button variant="primary" onClick={this.submitComment}>
+                <Button variant="primary" type="submit">
                     Invia Commento
                 </Button>
             </Form>
