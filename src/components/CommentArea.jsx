@@ -1,15 +1,15 @@
 import { Component } from "react";
 
 import CommentList from "./CommentList";
-import { Spinner } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 
 
 class CommentArea extends Component {
+
     state = {
         comments: [],
         loading: true
-
     }
 
     getComments = function () {
@@ -41,22 +41,33 @@ class CommentArea extends Component {
 
 
     }
-    componentDidMount() {
-        this.getComments()
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.elementId !== this.props.elementId) {
+            this.getComments()
+        }
+
     }
 
     render() {
 
         return (
             <>
-                <p>Recensioni</p>
-                {this.state.loading ? (
-                    <div className="d-flex justify-content-center align-items-center" >
-                        <Spinner animation="border" variant="primary" />
-                    </div>
-                ) : (
-                    <CommentList comments={this.state.comments} />
-                )}
+
+                <Row >
+                    <Col xs={12} className="d-flex flex-wrap align-content-center justify-content-center" style={{ height: "90px" }}>
+                        <h5 className="text-info">Recensioni</h5>
+                    </Col>
+                    <Col>
+
+                        <CommentList
+                            comments={this.state.comments}
+                            title={this.props.bookTitle} />
+                    </Col>
+                </Row>
+
+
+
+
             </>
 
         );

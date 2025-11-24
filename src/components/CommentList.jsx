@@ -5,11 +5,14 @@ import SingleComment from "./SingleComment";
 
 const CommentList = function (props) {
     return (
-        <ListGroup>
-            {props.comments.map((comment) => (
-                <SingleComment key={comment._id} comment={comment} />
-            ))}
-        </ListGroup>
+        <>
+            <h5 className="text-center text-light">{props.bookTitle}</h5>
+            <ListGroup>
+                {props.comments.map((comment) => (
+                    <SingleComment key={comment._id} comment={comment} title={props.title} />
+                ))}
+            </ListGroup>
+        </>
     )
 }
 

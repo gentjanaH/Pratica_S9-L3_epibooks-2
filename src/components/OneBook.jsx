@@ -6,22 +6,16 @@ import AddComment from './AddComment';
 
 class OneBook extends Component {
 
-    state = {
-        selected: false,
-        showForm: false,
-        refreshKey: 0
-    }
-
 
     render() {
         return (
-            <Col sm={6} md={4} lg={3} className="mx-auto">
-                <Card className={`h-100 ${this.state.selected ? "border border-3 border-danger" : "border-info"}`}>
+            <Col>
+                <Card className={`h-100 my-2 ${this.props.selectedBook?.asin === this.props.book.asin ? "border border-3 border-danger" : "border-info"}`}>
                     <Card.Img
                         variant="top"
                         src={this.props.book.img}
                         className="h-75 w-100"
-                        onClick={() => this.setState({ selected: !this.state.selected })
+                        onClick={() => this.props.handleBookSelect(this.props.book)
                         }
                     />
                     <Card.Body className="d-flex flex-column justify-content-around ">
@@ -38,7 +32,7 @@ class OneBook extends Component {
                                 onClick={() => this.setState({ showForm: !this.state.showForm })}>addComment</Button>
                         </div>
                     </Card.Body>
-                    {/* attivo l'area commenti se la card è selezionata e do una proprietà in base elementId all'id del libro */}
+                    {/* attivo l'area commenti se la card è selezionata e do una proprietà in base elementId all'id del libro
                     {this.state.selected && (
                         <CommentArea key={this.state.refreshKey} elementId={this.props.book.asin} />
                     )}
@@ -47,10 +41,10 @@ class OneBook extends Component {
                         <AddComment elementId={this.props.book.asin}
                             title={this.props.book.title}
                             onAddComment={() => this.setState({ refreshKey: this.state.refreshKey + 1 })} />
-                    )}
+                    )} */}
 
                 </Card>
-            </Col >
+            </Col>
         )
     }
 
